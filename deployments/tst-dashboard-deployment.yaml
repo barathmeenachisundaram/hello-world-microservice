@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: dashboard-deployment
+  namespace: tst
+  labels:
+    app: dashboard
+    env: tst
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dashboard
+      env: tst
+  template:
+    metadata:
+      labels:
+        app: dashboard
+        env: tst
+    spec:
+      containers:
+        - name: dashboard
+          image: dashboard:1
+          imagePullPolicy: Never
+          ports:
+            - name: dash-service
+              containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dash-service
+  namespace: tst
+  labels:
+    app: dashboard
+    env: tst
+spec:
+  type: NodePort
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: dash-service
+    nodePort: 30087
+  selector:
+    app: dashboard
+    env: tst

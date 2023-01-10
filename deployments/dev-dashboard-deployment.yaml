@@ -3,22 +3,22 @@ kind: Deployment
 
 metadata:
   name: dashboard-deployment
-  namespace: tst
+  namespace: dev
   labels:
     app: dashboard
-    env: tst
+    env: dev
 
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: dashboard
-      env: tst
+      env: dev
   template:
     metadata:
       labels:
         app: dashboard
-        env: tst
+        env: dev
     spec:
       containers:
         - name: dashboard
@@ -32,17 +32,17 @@ apiVersion: v1
 kind: Service
 metadata:
   name: dash-service
-  namespace: tst
+  namespace: dev
   labels:
     app: dashboard
-    env: tst
+    env: dev
 spec:
   type: NodePort
   ports:
   - protocol: TCP
     port: 80
     targetPort: dash-service
-    nodePort: 30087
+    nodePort: 30086
   selector:
     app: dashboard
-    env: tst
+    env: dev
