@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: user
-          image: user:1
+          image: user:latest
           imagePullPolicy: Never
           ports:
             - name: user-service
