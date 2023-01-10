@@ -22,9 +22,9 @@ def internal():
     return make_response({"msg": f"Hello from Dashboard app - {random_id}"})
 
 
-@app.route("/dashboard/call_user", methods=["POST"])
+@app.route("/dashboard/call_user", methods=["POST", "GET"])
 def call_dashboard():
-    response = requests.get("http://user-service:80/user/internal")
+    response = requests.get("http://user-service/user/internal")
     return make_response(response.json())
 
 
